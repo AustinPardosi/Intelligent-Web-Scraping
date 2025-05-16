@@ -1,0 +1,47 @@
+{
+  "test_name": "test_05_nl_query",
+  "timestamp": "2025-05-17 05:08:46",
+  "nl_query": "Cari peternak di Kansas",
+  "parsed_params": {
+    "state": "Kansas",
+    "member": null,
+    "breed": null
+  },
+  "execution_time": 1.8825294971466064,
+  "result_count": 3,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [
+    [
+      "navigate_pagination",
+      "KS",
+      "Dwight Elmore",
+      "3TAC Ranch Genetics  - 3TR",
+      "(620)  899-0770",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "KS",
+      "Mary Powell",
+      "Barnyard Weed Warriors - BWW",
+      "(785) 420-0472",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "KS",
+      "Sheila Anderson",
+      "Anderson Boer Goat Acres - SBA1",
+      "(785) 766-6842",
+      ""
+    ]
+  ],
+  "test_success": true
+}

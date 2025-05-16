@@ -1,0 +1,73 @@
+{
+  "test_name": "test_04_combined_search",
+  "timestamp": "2025-05-17 05:08:44",
+  "query_params": {
+    "state": "Iowa",
+    "breed": "(SA) - Savanna"
+  },
+  "execution_time": 0.8491740226745605,
+  "result_count": 6,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [
+    [
+      "navigate_pagination",
+      "IA",
+      "Steve & Syrie Vicary",
+      "Vicary Savanna Goats - VSG",
+      "(402)  203-2165",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "IA",
+      "Stephanie Mitcham",
+      "Crane Creek Savannas - CCS",
+      "(563)  578-5665",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "IA",
+      "Dennis & Stacy Ratashak",
+      "Ratashak Harvest Hills - RHH",
+      "(703)  850-4113",
+      ""
+    ]
+  ],
+  "test_success": true,
+  "expected_output": {
+    "header": [
+      "Action",
+      "State",
+      "Name",
+      "Farm",
+      "Phone",
+      "Website"
+    ],
+    "data": [
+      [
+        "navigate_pagination",
+        "IA",
+        "Dennis & Stacy Ratashak",
+        "Ratashak Harvest Hills - RHH",
+        "(703)  850-4113",
+        ""
+      ],
+      [
+        "navigate_pagination",
+        "IA",
+        "Stan Huber",
+        "-",
+        "(641)  732-9271",
+        ""
+      ]
+    ]
+  }
+}

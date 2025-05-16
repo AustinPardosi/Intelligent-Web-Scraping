@@ -1,0 +1,67 @@
+{
+  "test_name": "test_06_nl_complex",
+  "timestamp": "2025-05-17 05:08:48",
+  "nl_query": "Cari peternak di IOWA dengan jenis American Savanna",
+  "parsed_params": {
+    "state": "Iowa",
+    "member": null,
+    "breed": "American Savanna"
+  },
+  "execution_time": 1.9864072799682617,
+  "result_count": 2,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [
+    [
+      "navigate_pagination",
+      "IA",
+      "Dennis & Stacy Ratashak",
+      "Ratashak Harvest Hills - RHH",
+      "(703)  850-4113",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "IA",
+      "Stan Huber",
+      "-",
+      "(641)  732-9271",
+      ""
+    ]
+  ],
+  "test_success": true,
+  "expected_output": {
+    "header": [
+      "Action",
+      "State",
+      "Name",
+      "Farm",
+      "Phone",
+      "Website"
+    ],
+    "data": [
+      [
+        "navigate_pagination",
+        "IA",
+        "Dennis & Stacy Ratashak",
+        "Ratashak Harvest Hills - RHH",
+        "(703)  850-4113",
+        ""
+      ],
+      [
+        "navigate_pagination",
+        "IA",
+        "Stan Huber",
+        "-",
+        "(641)  732-9271",
+        ""
+      ]
+    ]
+  }
+}

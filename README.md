@@ -172,6 +172,83 @@ File debug akan disimpan di folder `debug/`:
 -   Script memiliki mekanisme deteksi elemen form yang fleksibel untuk menangani perubahan struktur halaman
 -   Fitur Natural Language menggunakan model GPT-4.1 mini (gpt-4o-mini) dari OpenAI
 
+## Automated Output Validation
+
+Script `test_scraper.py` menyediakan pengujian otomatis untuk memverifikasi akurasi scraper. Fitur ini memungkinkan kamu memastikan bahwa scraper bekerja dengan benar dan menghasilkan output yang diharapkan.
+
+### Cara Menjalankan Pengujian
+
+```bash
+python test_scraper.py
+```
+
+### Test Case yang Tersedia
+
+Script pengujian mencakup 8 test case berbeda:
+
+1. **Pencarian berdasarkan state** - Menguji kemampuan pencarian berdasarkan state (Kansas)
+2. **Pencarian berdasarkan member** - Menguji kemampuan pencarian berdasarkan nama peternak (Dwight Elmore)
+3. **Pencarian berdasarkan breed** - Menguji kemampuan pencarian berdasarkan jenis ternak
+4. **Pencarian kombinasi parameter** - Menguji kemampuan pencarian dengan kombinasi state dan breed (Iowa dan Savanna)
+5. **Pencarian dengan Natural Language** - Menguji kemampuan mengkonversi query bahasa alami ke parameter pencarian
+6. **Pencarian kompleks dengan NL** - Menguji kemampuan mengkonversi query kompleks seperti "Cari peternak di IOWA dengan jenis American Savanna"
+7. **Pencarian dengan parameter tidak valid** - Menguji ketahanan terhadap parameter yang tidak valid
+8. **Penanganan kesalahan** - Menguji penanganan kesalahan saat terjadi masalah koneksi
+
+### Hasil Pengujian
+
+Hasil pengujian disimpan dalam folder `test_results/`:
+
+-   File individual untuk setiap test case (misalnya `test_01_search_by_state.json`)
+-   File ringkasan dengan statistik keseluruhan (`summary_TIMESTAMP.json`)
+
+Setiap file hasil pengujian berisi:
+
+-   Parameter pencarian yang digunakan
+-   Waktu eksekusi
+-   Contoh data hasil pencarian
+-   Ekspektasi vs hasil aktual
+
+Contoh output pengujian:
+
+```json
+{
+    "test_name": "test_04_combined_search",
+    "timestamp": "2025-05-17 05:07:32",
+    "query_params": {
+        "state": "Iowa",
+        "breed": "(SA) - Savanna"
+    },
+    "execution_time": 0.87,
+    "result_count": 6,
+    "header": ["Action", "State", "Name", "Farm", "Phone", "Website"],
+    "sample_data": [
+        [
+            "navigate_pagination",
+            "IA",
+            "Steve & Syrie Vicary",
+            "Vicary Savanna Goats - VSG",
+            "(402) 203-2165",
+            ""
+        ]
+    ],
+    "test_success": true,
+    "expected_output": {
+        "header": ["Action", "State", "Name", "Farm", "Phone", "Website"],
+        "data": [
+            [
+                "navigate_pagination",
+                "IA",
+                "Dennis & Stacy Ratashak",
+                "Ratashak Harvest Hills - RHH",
+                "(703) 850-4113",
+                ""
+            ]
+        ]
+    }
+}
+```
+
 ## Catatan
 
 -   Script ini dirancang hanya untuk tujuan pendidikan

@@ -1,0 +1,19 @@
+{
+  "test_name": "test_03_search_by_breed",
+  "timestamp": "2025-05-17 05:08:43",
+  "query_params": {
+    "breed": "(AK) - Ameri-Kiko"
+  },
+  "execution_time": 0.8607258796691895,
+  "result_count": 0,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [],
+  "test_success": true
+}

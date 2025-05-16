@@ -1,0 +1,207 @@
+{
+  "total": 8,
+  "success": 8,
+  "fail": 0,
+  "error": 0,
+  "success_rate": 100.0,
+  "test_details": [
+    {
+      "test_name": "test_01_search_by_state",
+      "success": true,
+      "execution_time": 0.8518264293670654,
+      "result_count": 3,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "KS",
+          "Dwight Elmore",
+          "3TAC Ranch Genetics  - 3TR",
+          "(620)  899-0770",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "KS",
+          "Mary Powell",
+          "Barnyard Weed Warriors - BWW",
+          "(785) 420-0472",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "KS",
+          "Sheila Anderson",
+          "Anderson Boer Goat Acres - SBA1",
+          "(785) 766-6842",
+          ""
+        ]
+      ],
+      "expected_result": "Pencarian berdasarkan state harus menghasilkan daftar peternak di state tersebut",
+      "actual_result": "Pencarian dengan state='Kansas' menghasilkan 3 hasil"
+    },
+    {
+      "test_name": "test_02_search_by_member",
+      "success": true,
+      "execution_time": 0.8563082218170166,
+      "result_count": 1,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "KS",
+          "Dwight Elmore",
+          "3TAC Ranch Genetics  - 3TR",
+          "(620)  899-0770",
+          ""
+        ]
+      ],
+      "expected_result": "Pencarian berdasarkan member harus menemukan peternak dengan nama tersebut",
+      "actual_result": "Pencarian dengan member='Dwight Elmore' menghasilkan 1 hasil"
+    },
+    {
+      "test_name": "test_03_search_by_breed",
+      "success": true,
+      "execution_time": 0.8607258796691895,
+      "result_count": 0,
+      "sample_data": [],
+      "expected_result": "Pencarian berdasarkan breed harus menemukan peternak dengan breed tersebut",
+      "actual_result": "Pencarian dengan breed='(AK) - Ameri-Kiko' menghasilkan 0 hasil"
+    },
+    {
+      "test_name": "test_04_combined_search",
+      "success": true,
+      "execution_time": 0.8491740226745605,
+      "result_count": 6,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "IA",
+          "Steve & Syrie Vicary",
+          "Vicary Savanna Goats - VSG",
+          "(402)  203-2165",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "IA",
+          "Stephanie Mitcham",
+          "Crane Creek Savannas - CCS",
+          "(563)  578-5665",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "IA",
+          "Dennis & Stacy Ratashak",
+          "Ratashak Harvest Hills - RHH",
+          "(703)  850-4113",
+          ""
+        ]
+      ],
+      "expected_result": "Pencarian kombinasi parameter harus menghasilkan hasil yang sesuai dengan kedua kriteria",
+      "actual_result": "Pencarian dengan state='Iowa', breed='(SA) - Savanna' menghasilkan 6 hasil"
+    },
+    {
+      "test_name": "test_05_nl_query",
+      "success": true,
+      "execution_time": 1.8825294971466064,
+      "result_count": 3,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "KS",
+          "Dwight Elmore",
+          "3TAC Ranch Genetics  - 3TR",
+          "(620)  899-0770",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "KS",
+          "Mary Powell",
+          "Barnyard Weed Warriors - BWW",
+          "(785) 420-0472",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "KS",
+          "Sheila Anderson",
+          "Anderson Boer Goat Acres - SBA1",
+          "(785) 766-6842",
+          ""
+        ]
+      ],
+      "expected_result": "Query bahasa alami harus dikonversi ke parameter yang benar dan menghasilkan hasil yang relevan",
+      "actual_result": "Query NL diproses menjadi parameter (state='Kansas') dengan 3 hasil"
+    },
+    {
+      "test_name": "test_06_nl_complex",
+      "success": true,
+      "execution_time": 1.9864072799682617,
+      "result_count": 2,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "IA",
+          "Dennis & Stacy Ratashak",
+          "Ratashak Harvest Hills - RHH",
+          "(703)  850-4113",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "IA",
+          "Stan Huber",
+          "-",
+          "(641)  732-9271",
+          ""
+        ]
+      ],
+      "expected_result": "Query bahasa alami kompleks harus diproses dengan benar meskipun memiliki beberapa parameter",
+      "actual_result": "Query NL diproses menjadi parameter (state='Iowa', breed='American Savanna') dengan 2 hasil"
+    },
+    {
+      "test_name": "test_07_invalid_params",
+      "success": true,
+      "execution_time": 0.9137551784515381,
+      "result_count": 104,
+      "sample_data": [
+        [
+          "navigate_pagination",
+          "IN",
+          "Chris Luton",
+          "Boulder Hill Farm - BHF",
+          "(812)  483-6780",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "TX",
+          "Gretchen Noelke",
+          "Noelke Wilhelm Ranch - NWR",
+          "(325)  203-0204",
+          ""
+        ],
+        [
+          "navigate_pagination",
+          "SD",
+          "Jason or Karlia Dahl",
+          "Heartland Savanna's - HS",
+          "(605)  880-1354",
+          ""
+        ]
+      ],
+      "expected_result": "Parameter tidak valid harus ditangani dengan baik tanpa error",
+      "actual_result": "Pencarian dengan state='NonExistentState' menghasilkan 104 hasil"
+    },
+    {
+      "test_name": "test_08_error_handling",
+      "success": true,
+      "execution_time": 0.0,
+      "result_count": 0,
+      "sample_data": [],
+      "expected_result": "Error koneksi atau server harus ditangani dengan baik dan memberikan pesan yang informatif",
+      "actual_result": "Pengujian selesai dengan 0 hasil"
+    }
+  ]
+}

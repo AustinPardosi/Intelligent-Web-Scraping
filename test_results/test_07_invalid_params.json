@@ -1,0 +1,44 @@
+{
+  "test_name": "test_07_invalid_params",
+  "timestamp": "2025-05-17 05:08:49",
+  "query_params": {
+    "state": "NonExistentState"
+  },
+  "execution_time": 0.9137551784515381,
+  "result_count": 104,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [
+    [
+      "navigate_pagination",
+      "IN",
+      "Chris Luton",
+      "Boulder Hill Farm - BHF",
+      "(812)  483-6780",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "TX",
+      "Gretchen Noelke",
+      "Noelke Wilhelm Ranch - NWR",
+      "(325)  203-0204",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "SD",
+      "Jason or Karlia Dahl",
+      "Heartland Savanna's - HS",
+      "(605)  880-1354",
+      ""
+    ]
+  ],
+  "test_success": true
+}

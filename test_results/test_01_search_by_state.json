@@ -1,0 +1,44 @@
+{
+  "test_name": "test_01_search_by_state",
+  "timestamp": "2025-05-17 05:08:41",
+  "query_params": {
+    "state": "Kansas"
+  },
+  "execution_time": 0.8518264293670654,
+  "result_count": 3,
+  "header": [
+    "Action",
+    "State",
+    "Name",
+    "Farm",
+    "Phone",
+    "Website"
+  ],
+  "sample_data": [
+    [
+      "navigate_pagination",
+      "KS",
+      "Dwight Elmore",
+      "3TAC Ranch Genetics  - 3TR",
+      "(620)  899-0770",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "KS",
+      "Mary Powell",
+      "Barnyard Weed Warriors - BWW",
+      "(785) 420-0472",
+      ""
+    ],
+    [
+      "navigate_pagination",
+      "KS",
+      "Sheila Anderson",
+      "Anderson Boer Goat Acres - SBA1",
+      "(785) 766-6842",
+      ""
+    ]
+  ],
+  "test_success": true
+}
