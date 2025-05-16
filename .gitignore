@@ -1,0 +1,36 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Debug files
+debug_*.html
+debug_*.png
+debug_*.jpg
+debug_*.json
+debug_*.txt
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db 
+
+.env

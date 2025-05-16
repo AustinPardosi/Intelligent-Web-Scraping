@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>American Meat Goat Registry</title>
+
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DEB6GFCK1L"></script>
+        <script>
+            //  Google Analytics
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DEB6GFCK1L');
+
+            // prevent right click
+            document.addEventListener("contextmenu", function(e){
+            e.preventDefault();
+          }, false);
+
+        </script>
+    
+        <link rel="icon" href="favicon.ico?v=2" type="image/x-icon"/>
+        <!-- Bootstrap core CSS -->
+
+        <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom JavaScript for this theme -->
+        <script src="js/scrolling-nav.js"></script>
+        <!-- Custom styles for this template -->
+        <link href="css/scrolling-nav.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+        <link rel = "stylesheet" href = "vendor/bootstrap/css/jquery.mobile-1.4.5.min.css">
+        <link rel = "stylesheet" href = "vendor/bootstrap/css/jquery.mobile.datepicker.css" />
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+
+        <style type="text/css">
+            .container {
+                position: relative;
+            }
+
+            /* Bottom right text */
+                .text-block {
+                  position: absolute;
+                  color: white;
+                  padding-left: 12px;
+                }
+            }
+            .dropdown-submenu {
+                position: relative;
+            }
+
+            .dropdown-submenu a::after {
+                transform: rotate(-90deg);
+                position: relative;
+                right: -50px;
+            }
+
+            .dropdown-submenu .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-left: .1rem;
+                margin-right: .1rem;
+            }
+            .dropdown-submenu:hover .dropdown-menu {
+                display: block;
+                margin-top: 0; // remove the gap so it doesn't close
+             }
+            .dropdown-subsubmenu {
+                position: relative;
+                display: block;
+            }
+
+            .dropdown-subsubmenu a::after {
+                transform: rotate(-90deg);
+                position: relative;
+                right: -5px;
+            }
+
+            .dropdown-submenu .dropdown-subsubmenu .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-left: .1rem;
+                margin-right: .1rem;
+                display: none;
+            }
+            .dropdown-submenu:hover .dropdown-subsubmenu:hover .dropdown-menu {
+                 display: block;
+                 top: 0; // remove the gap so it doesn't close
+               
+             }
+        </style>
+        
+    </head>
+
+    
+
+    <body id="page-top">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="/index.cfm#page-top"><img src="images/logo3.png" border="0" height="100px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Home
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/index.cfm#about" title="Click to search for breeders">About</a></li>
+                                <li><a class="dropdown-item new-tab" href="/index.cfm#services" title="Click to search for pedigrees">Services</a></li>
+                                <li><a class="dropdown-item new-tab" href="/index.cfm#contact" title="Click to create a proposed pedigree">Contact</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Search
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/frm_directorySearch.cfm" title="Click to search for breeders">Breeder Directory</a></li>
+                                <li><a class="dropdown-item new-tab" href="/frm_pedigreeSearch.cfm" title="Click to search for pedigrees">Pedigree Search</a></li>
+                                <li><a class="dropdown-item new-tab" href="/frm_proposePedigree.cfm" title="Click to create a proposed pedigree">Proposed Pedigree</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Resources
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/dsp_articles.cfm" title="Click to see helpful aticles">Articles</a></li>
+                                <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="/#">Breeds</a>
+                                    <ul class="dropdown-menu">
+                                        
+                                        <li class="dropdown-subsubmenu"><a class="dropdown-item dropdown-toggle" href="/#">American Red</a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/documents/Red_Program_Information.pdf" target="_blank">American Red Program</a></li>
+                                                <li><a class="dropdown-item" href="/dsp_breedAmericanRedStandards.cfm">American Red Breed Standards</a></li>
+                                                
+                                            </ul>
+                                        </li>
+                                        
+                                        <li><a class="dropdown-item" href="/dsp_breedBoer.cfm">Boer</a></li>
+                                        
+                                        <li><a class="dropdown-item" href="/dsp_breedKiko.cfm">Kiko</a></li>
+                                        <li><a class="dropdown-item" href="/dsp_breedMyotonic.cfm">Myotonic</a></li>
+                                        <li><a class="dropdown-item" href="/dsp_breedSavanna.cfm">Savanna</a></li>
+                                        <li><a class="dropdown-item" href="/dsp_breedSpanish.cfm">Spanish</a></li>
+                                    </ul>
+                                </li>                               
+                                <li><a class="dropdown-item" href="/dsp_faqs.cfm" title="Click to show FAQs">FAQs</a></li>
+                                <li><a class="dropdown-item" href="/dsp_fees.cfm" title="Click to see our fees">Fee Schedule</a></li>
+                                <li><a class="dropdown-item" href="/frm_gestationCalendar.cfm" title="Click for a gestation calander">Gestation Calander</a></li>
+                                <li><a class="dropdown-item" href="/dsp_refLinks.cfm" title="Click to search see links to important information">Links</a></li>
+                                <li><a class="dropdown-item" href="/dsp_xfactor.cfm" title="Click to read more about our X-Factor breeding program">The X-Factor</a></li>
+                                <li><a class="dropdown-item" href="/dsp_videoLibrary.cfm" title="Click to search see some videos">Video Library</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Forms
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/forms/AMGR_BreederApp.pdf" target="_blank">Breeder Application</a></li>
+                                <li><a class="dropdown-item" href="/forms/AMGR_Order_Form_Plain.pdf" target="_blank">OrderForm</a></li>
+                                <li class="dropdown-submenu">
+                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="/#">Registration</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/forms/AMGR_AR_Registration.pdf" target="_blank">American Red</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_B_Registration.pdf" target="_blank">Boer</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_C_Registration.pdf" target="_blank">Composite</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_K_Registration.pdf" target="_blank">Kiko</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_M_Registration.pdf" target="_blank">Myotonic</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_SA_Registration.pdf" target="_blank">Savanna</a></li>
+                                        <li><a class="dropdown-item" href="/forms/AMGR_SP_Registration.pdf" target="_blank">Spanish</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="dropdown-item" href="/forms/AMGR_DNA_Form.pdf" target="_blank">DNA Request</a></li>
+                                <li><a class="dropdown-item" href="/forms/AMGR_Transfer_Form.pdf" target="_blank">Transfer</a></li>
+                                <li><a class="dropdown-item" href="/forms/BOS.pdf" target="_blank">Bill Of Sale</a></li>
+                                <li><a class="dropdown-item new-tab" href="/forms/serviceMemo.pdf" target="_blank">Sire Service Memo</a></li>
+                            </ul>
+                        </li>
+
+                        
+
+                        
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="/frm_addMember.cfm">Sign Up</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/frm_login.cfm">Login</a></li>
+                        
+
+                        <li class="nav-item">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </li>
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            
+                                <a class="nav-link" href="/dsp_guestCart.cfm" role="button">
+                            
+                                <h3 class="fas fa-fw" style="font-size:20px">&#xf07a;</h3>
+                                
+                                    <span class=""></span>
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+ <!-- Custom styles for this page -->
+ <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<script type="text/javascript">
+   $(document).ready(function() {
+      // DataTable
+      var table = $('#example').DataTable( {
+      	stateSave: true,
+		order: [[ 1, 'asc' ]]
+      });
+      var pagActual = tablaWidget.getPaginator().getCurrentPage();
+      // Restore state
+      var state = table.state.loaded();
+      if ( state ) {
+        	table.columns().eq( 0 ).each( function ( colIdx ) {
+	          var colSearch = state.columns[colIdx].search;
+	          
+	          if ( colSearch.search ) {
+	            $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+	          }
+        });
+        
+        table.draw();
+      }
+
+      // Apply the search
+      table.columns().eq( 0 ).each( function ( colIdx ) {
+          $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+              table
+                  .column( colIdx )
+                  .search( this.value )
+                  .draw();
+          } );
+      } );
+   });
+
+   $('table.display').on('click', 'td.view-goat', function() {
+      var td=$(this).closest('td');
+      var ins=td.data('child-value');
+      window.open("dsp_goat.cfm?goatID="+id,"_blank");
+   });
+</script>
+
+
+
+   	<section>
+       	<div class="container">
+         	<div class="row align-items-center justify-content-center">
+             	<div class="col-12">
+                 	<div>
+                     	<h1>Directory</h1>
+                    
+						<div class="row" style="font-style: italic; margin-top: 8px;">
+							<div class="col-sm-10">
+								<h5>Use these filters to narrow down the search results or press submit to see ALL breeders.</h5>
+							</div>
+						</div>
+						
+						<form name="filterGoats" action="frm_directorySearch.cfm" method="post">
+							<div class="bg-light" style="border: 1px solid navy; padding: 5px;">
+								<div class="container">
+									<div class="row">
+										<div class="col-3">
+											<select name="stateID" class="form-control">
+												<option value="">-- Select State --</option>
+												
+													<option value="3" >Alabama</option>
+												
+													<option value="1" >Alabama</option>
+												
+													<option value="2" >Alaska</option>
+												
+													<option value="4" >Arizona</option>
+												
+													<option value="5" >Arkansas</option>
+												
+													<option value="6" >California</option>
+												
+													<option value="7" >Colorado</option>
+												
+													<option value="8" >Connecticut</option>
+												
+													<option value="9" >Delaware</option>
+												
+													<option value="10" >District of Columbia</option>
+												
+													<option value="11" >Florida</option>
+												
+													<option value="12" >Georgia</option>
+												
+													<option value="13" >Hawaii</option>
+												
+													<option value="14" >Idaho</option>
+												
+													<option value="15" >Illinois</option>
+												
+													<option value="16" >Indiana</option>
+												
+													<option value="17" >Iowa</option>
+												
+													<option value="18" selected>Kansas</option>
+												
+													<option value="19" >Kentucky</option>
+												
+													<option value="20" >Louisiana</option>
+												
+													<option value="21" >Maine</option>
+												
+													<option value="22" >Maryland</option>
+												
+													<option value="23" >Massachusetts</option>
+												
+													<option value="24" >Michigan</option>
+												
+													<option value="25" >Minnesota</option>
+												
+													<option value="26" >Mississippi</option>
+												
+													<option value="27" >Missouri</option>
+												
+													<option value="28" >Montana</option>
+												
+													<option value="29" >Nebraska</option>
+												
+													<option value="30" >Nevada</option>
+												
+													<option value="31" >New Hampshire</option>
+												
+													<option value="32" >New Jersey</option>
+												
+													<option value="33" >New Mexico</option>
+												
+													<option value="34" >New York</option>
+												
+													<option value="35" >North Carolina</option>
+												
+													<option value="36" >North Dakota</option>
+												
+													<option value="37" >Ohio</option>
+												
+													<option value="38" >Oklahoma</option>
+												
+													<option value="39" >Oregon</option>
+												
+													<option value="40" >Pennsylvania</option>
+												
+													<option value="41" >Puerto Rico</option>
+												
+													<option value="42" >Rhode Island</option>
+												
+													<option value="43" >South Carolina</option>
+												
+													<option value="44" >South Dakota</option>
+												
+													<option value="45" >Tennessee</option>
+												
+													<option value="46" >Texas</option>
+												
+													<option value="47" >Utah</option>
+												
+													<option value="48" >Vermont</option>
+												
+													<option value="49" >Virginia</option>
+												
+													<option value="50" >Washington</option>
+												
+													<option value="51" >West Virginia</option>
+												
+													<option value="52" >Wisconsin</option>
+												
+													<option value="53" >Wyoming</option>
+												
+											</select>
+										</div>
+										<div class="col-3">
+											<select name="memberID" class="form-control">
+												<option value="">-- Select Member --</option>
+												
+													<option value="253" >Alan Gilleo</option>
+												
+													<option value="32" >Alan & Joyce Simpson</option>
+												
+													<option value="92" >Alli Roheim</option>
+												
+													<option value="173" >Angelika Munter</option>
+												
+													<option value="33" >Anne Mayer</option>
+												
+													<option value="40" >Arlene Morisette</option>
+												
+													<option value="7" >Barbara Walrath</option>
+												
+													<option value="213" >Bill Carter</option>
+												
+													<option value="31" >Bill Mousadakos</option>
+												
+													<option value="176" >Cal Norris</option>
+												
+													<option value="285" >Carman Lovell</option>
+												
+													<option value="20" >Charles & Stephen Lemond</option>
+												
+													<option value="2" >Chris Luton</option>
+												
+													<option value="28" >Christina Ordner</option>
+												
+													<option value="318" >Chuck Freeny</option>
+												
+													<option value="217" >Cody & Taylor Riggins</option>
+												
+													<option value="60" >Cody or Austin Crum</option>
+												
+													<option value="11" >Daelene Haynes</option>
+												
+													<option value="8" >Dale Coody</option>
+												
+													<option value="183" >Dan Jennings</option>
+												
+													<option value="336" >David Lomax</option>
+												
+													<option value="230" >David Wiggins</option>
+												
+													<option value="58" >Dawn Mincey</option>
+												
+													<option value="219" >Dayn and Sharon Pullen</option>
+												
+													<option value="126" >Dee Richhart</option>
+												
+													<option value="90" >Dennis & Stacy Ratashak</option>
+												
+													<option value="19" >Donald & Ann Marie Becker</option>
+												
+													<option value="160" >Dwight Elmore</option>
+												
+													<option value="17" >Elam Stoltzfoos</option>
+												
+													<option value="215" >Elizabeth Habeck</option>
+												
+													<option value="109" >Fran Herrington</option>
+												
+													<option value="22" >Francine Snider</option>
+												
+													<option value="30" >Glen & Marjorie Edwards</option>
+												
+													<option value="3" >Gretchen Noelke</option>
+												
+													<option value="24" >Hannah Ferrell</option>
+												
+													<option value="54" >Heather Harris</option>
+												
+													<option value="34" >Hollie Metz</option>
+												
+													<option value="148" >Jacoby Ranch Partners</option>
+												
+													<option value="13" >James & Nicole Schulze</option>
+												
+													<option value="228" >Jared Combs</option>
+												
+													<option value="4" >Jason or Karlia Dahl</option>
+												
+													<option value="104" >Jesse & Denise Foster</option>
+												
+													<option value="18" >Joe & Lisa Williams</option>
+												
+													<option value="224" >John Huston</option>
+												
+													<option value="229" >John & Renee'  Brissont</option>
+												
+													<option value="49" >Joshua Cearnal</option>
+												
+													<option value="192" >Joy Hurlburt</option>
+												
+													<option value="238" >Joy Zuchel</option>
+												
+													<option value="249" >Judd and Heaven York</option>
+												
+													<option value="210" >Julie Carreiro</option>
+												
+													<option value="83" >Julie Kelley</option>
+												
+													<option value="171" >Kailey Rindels</option>
+												
+													<option value="306" >Kate Brewster</option>
+												
+													<option value="14" >Katie & Kevin Kelley</option>
+												
+													<option value="48" >Ken Moody</option>
+												
+													<option value="37" >Kevin & JoLynn Parmely</option>
+												
+													<option value="184" >Kimberly Royer</option>
+												
+													<option value="235" >Kipp & Stacey Brown</option>
+												
+													<option value="50" >Larry Jeffery</option>
+												
+													<option value="106" >Larry & Steve Massey</option>
+												
+													<option value="296" >Larry, Suzie, Dallas Garriott</option>
+												
+													<option value="94" >Leah Grant</option>
+												
+													<option value="21" >Leszek Zarycki</option>
+												
+													<option value="63" >Lloyd Ward</option>
+												
+													<option value="45" >Marc, Beth & Allyson McElroy</option>
+												
+													<option value="57" >Mark Taylor</option>
+												
+													<option value="116" >Marlene Wild/ Heidi Ruwald</option>
+												
+													<option value="123" >Marty & Cathy Ferguson</option>
+												
+													<option value="165" >Mary Powell</option>
+												
+													<option value="193" >Matthew Martin</option>
+												
+													<option value="1358" >Melissa Silpe</option>
+												
+													<option value="112" >Michael Cannizzaro</option>
+												
+													<option value="190" >Michael Turnbow </option>
+												
+													<option value="185" >Michael & Blair Porter</option>
+												
+													<option value="78" >Michael & Brandy Aherron</option>
+												
+													<option value="79" >Mike & Lorna Harper</option>
+												
+													<option value="98" >Mike & Rose Epp</option>
+												
+													<option value="29" >Mitchell & Neidy Sandlin</option>
+												
+													<option value="23" >Morris Moore</option>
+												
+													<option value="164" >Nancy Barlas</option>
+												
+													<option value="130" >Nancy Price</option>
+												
+													<option value="25" >Noah & Amelia Chasteen</option>
+												
+													<option value="86" >Philip & Cindy Camp</option>
+												
+													<option value="170" >Priscilla Crites</option>
+												
+													<option value="10" >Raina Blaylock</option>
+												
+													<option value="162" >Ramey & Cathy Watkins </option>
+												
+													<option value="62" >Ronald McGill & Family</option>
+												
+													<option value="177" >Samantha King</option>
+												
+													<option value="283" >Sandra Cromwell</option>
+												
+													<option value="55" >Sarah Kennedy</option>
+												
+													<option value="26" >Shane & Melissa Minton</option>
+												
+													<option value="293" >Sharla Vaughan-Hein</option>
+												
+													<option value="131" >Shawn Lawrence</option>
+												
+													<option value="226" >Shawna Andrew</option>
+												
+													<option value="167" >Sheila Anderson </option>
+												
+													<option value="221" >Sherry Stivender</option>
+												
+													<option value="178" >Stan Huber</option>
+												
+													<option value="42" >Stephanie Mitcham</option>
+												
+													<option value="6" >Steve & Syrie Vicary</option>
+												
+													<option value="117" >Steve & Tonya Lester</option>
+												
+													<option value="15" >Susan & Arvin Haslem</option>
+												
+													<option value="166" >Todd & Dana Evans</option>
+												
+													<option value="43" >Tony or Stephanie Dotson</option>
+												
+													<option value="214" >William Hennage</option>
+												
+											</select>
+										</div>
+										<div class="col-3">
+											<select name="breedID" class="form-control">
+												<option value="">-- Select Breed --</option>
+												
+													<option value="12" >(AK) - Ameri-Kiko</option>
+												
+													<option value="9" >(AC) - American Black</option>
+												
+													<option value="10" >(AB) - American Boer</option>
+												
+													<option value="13" >(AD) - American Dapple</option>
+												
+													<option value="11" >(AM) - American Myotonic</option>
+												
+													<option value="1" >(AR) - American Red</option>
+												
+													<option value="8" >(AS) - American Savanna</option>
+												
+													<option value="14" >(AP) - American Spanish</option>
+												
+													<option value="3" >(B) - Boer</option>
+												
+													<option value="4" >(C) - Composite</option>
+												
+													<option value="5" >(K) - Kiko</option>
+												
+													<option value="6" >(M) - Myotonic</option>
+												
+													<option value="2" >(A) - Savanna</option>
+												
+													<option value="7" >(SP) - Spanish</option>
+												
+											</select>
+										</div> 
+										<div class="col-3">
+											<input type="submit" class="btn btn-primary" id="submitButton" name="submitButton" value="Submit">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>                 
+					</div>
+				</div>
+			</div>
+
+			
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h1 class="fas fa-users">&nbsp;&nbsp;Breeders</h1>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							
+							<table id="example" class="table table-bordered" width="100%">
+								<thead>
+									<tr class="card-header">
+									<th>Action</th>
+									<th>State</th>
+									<th>Name</th>
+									<th>Farm</th>
+									<th>Phone</th>
+									
+									<th>Website</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+										<tr>
+											<td align="center">
+												<a href="dsp_memberProfile.cfm?memberID=160" title="Click to view more..."><i class="fas fa-glasses"></i></a>
+											</td>
+											<td>
+												KS
+											</td>
+											<td>Dwight Elmore</td>
+											<td>3TAC Ranch Genetics  - 3TR</td>
+											<td nowrap>(620)  899-0770</td>
+											
+											<td>
+												
+											</td>
+										</tr>
+									
+										<tr>
+											<td align="center">
+												<a href="dsp_memberProfile.cfm?memberID=165" title="Click to view more..."><i class="fas fa-glasses"></i></a>
+											</td>
+											<td>
+												KS
+											</td>
+											<td>Mary Powell</td>
+											<td>Barnyard Weed Warriors - BWW</td>
+											<td nowrap>(785) 420-0472</td>
+											
+											<td>
+												
+											</td>
+										</tr>
+									
+										<tr>
+											<td align="center">
+												<a href="dsp_memberProfile.cfm?memberID=167" title="Click to view more..."><i class="fas fa-glasses"></i></a>
+											</td>
+											<td>
+												KS
+											</td>
+											<td>Sheila Anderson </td>
+											<td>Anderson Boer Goat Acres - SBA1 </td>
+											<td nowrap>(785) 766-6842</td>
+											
+											<td>
+												
+											</td>
+										</tr>
+									
+								</tbody>
+							</table>				
+						</div>               
+					</div>
+				</div>
+			
+		</div>
+	</section>
+
+
+    <script type="text/javascript">
+       // jQuery ".Class" SELECTOR.
+        $(document).ready(function() {
+            $('.numberOnly').keypress(function (event) {
+                return isNumber(event, this)
+            });
+        });
+        // THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+        function isNumber(evt, element) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (
+                (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // Check minus and only once.
+                (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // Check dot and only once.
+                (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }    
+    </script>
+    <script>
+        $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+          if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+          }
+          var $subMenu = $(this).next(".dropdown-menu");
+          $subMenu.toggleClass('show');
+
+
+          $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+            $('.dropdown-submenu .show').removeClass("show");
+          });
+
+
+          return false;
+        });
+    </script>
+    <style type="text/css">
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+
+
+         @media (max-width:991.98px) {
+             .padding {
+                 padding: 1.5rem
+             }
+         }
+
+         @media (max-width:767.98px) {
+             .padding {
+                 padding: 1rem
+             }
+         }
+
+         .padding {
+             padding: 3rem
+         }
+
+         .btn.btn-social-icon {
+             width: 40px;
+             height: 40px;
+             padding: 6px;
+         }
+
+         .btn.btn-rounded {
+             border-radius: 50px
+         }
+
+         .btn-outline-facebook {
+             border: 1px solid #3b579d;
+             color: #3b579d;
+             padding-top:  3px;
+         }
+
+         .btn-outline-facebook:hover {
+             background: #3b579d;
+             color: #ffffff
+         }
+
+         .btn-outline-youtube {
+             border: 1px solid #e52d27;
+             color: #e52d27
+         }
+
+         .btn-outline-twitter {
+             border: 1px solid #2caae1;
+             color: #2caae1
+         }
+
+         .btn-outline-dribbble {
+             border: 1px solid #ea4c89;
+             color: #ea4c89
+         }
+
+         .btn-outline-linkedin {
+             border: 1px solid #0177b5;
+             color: #0177b5
+         }
+
+         .btn-outline-instagram {
+             border: 1px solid #dc4a38;
+             color: #dc4a38
+         }
+
+         .btn-outline-twitter:hover {
+             background: #2caae1;
+             color: #ffffff
+         }
+
+         .btn-outline-linkedin:hover {
+             background: #0177b5;
+             color: #ffffff
+         }
+
+         .btn-outline-youtube:hover {
+             background: #e52d27;
+             color: #ffffff
+         }
+
+         .btn-outline-instagram:hover {
+             background: #e52d27;
+             color: #ffffff
+         }
+
+         .btn-facebook {
+             background: #3b579d;
+             color: #ffffff
+         }
+
+         .btn-youtube {
+             background: #e52d27;
+             color: #ffffff
+         }
+
+         .btn-twitter {
+             background: #2caae1;
+             color: #ffffff
+         }
+
+         .btn-dribbble {
+             background: #ea4c89;
+             color: #ffffff
+         }
+
+         .btn-linkedin {
+             background: #0177b5;
+             color: #ffffff
+         }
+
+         .btn-instagram {
+             background: #dc4a38;
+             color: #ffffff
+         }
+
+         .btn-facebook:hover,
+         .btn-facebook:focus {
+             background: #2d4278;
+             color: #ffffff
+         }
+
+         .btn-youtube:hover,
+         .btn-youtube:focus {
+             background: #c21d17;
+             color: #ffffff
+         }
+
+         .btn-twitter:hover,
+         .btn-twitter:focus {
+             background: #1b8dbf;
+             color: #ffffff
+         }
+
+         .btn-dribbble:hover,
+         .btn-dribbble:focus {
+             background: #e51e6b;
+             color: #ffffff
+         }
+
+         .btn-linkedin:hover,
+         .btn-linkedin:focus {
+             background: #015682;
+             color: #ffffff
+         }
+
+         .btn-instagram:hover,
+         .btn-instagram:focus {
+             background: #bf3322;
+             color: #ffffff
+         }
+</style>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<div class="page-content page-container" id="page-content" align="center">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Follow Us!</h4>
+
+                        <div class="template-demo"> 
+                            <a href="https://www.facebook.com/amgrgoats" class="btn btn-social-icon btn-facebook btn-rounded" target="_blank"><i class="fa fa-facebook"></i></a> 
+                             
+                            <a href="https://www.instagram.com/american_meat_goat_registry/" class="btn btn-social-icon btn-instagram btn-rounded" target="_blank"><i class="fa fa-instagram"></i></a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="padding:25px;">
+        <div class="container">
+  
+            <div class="navbar-collapse">
+                <ul class=" nav navbar-nav navbar-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" 
+                           href="privacyPolicy.cfm?popup=0">
+                          Privacy Policy 
+                          <span class="sr-only">
+                            (current)
+                          </span>
+                      </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" 
+                           href="termsofuse.cfm?popup=0">
+                          Terms Of Use
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" 
+                           href="AMGR_Handbook.cfm?popup=0">
+                          Handbook
+                        </a>
+                    </li><br><br>
+                    <span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=wYSGs8bbZdNU0ZEE56o1uhISX2k3sv4GciB6tFluvmI3oLUHzxK8elPrDrGw"></script></span>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        <!-- Footer -->
+    <footer class="py-2 bg-dark">
+  
+        <div class="container"> 
+           <p class="m-0 text-center text-white">All rights reserved - Copyright &copy; amgr.org 2020  - 2025</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+    <script src = "js/formatTelephone.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+</body>
+
+</html>
