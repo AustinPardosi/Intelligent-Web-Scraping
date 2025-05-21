@@ -170,7 +170,7 @@ File debug akan disimpan di folder `debug/`:
 
 -   Script menggunakan nama field yang benar untuk form submission: `stateID`, `memberID`, dan `breedID`
 -   Script memiliki mekanisme deteksi elemen form yang fleksibel untuk menangani perubahan struktur halaman
--   Fitur Natural Language menggunakan model GPT-4.1 mini (gpt-4o-mini) dari OpenAI
+-   Fitur Natural Language menggunakan model `gpt-4o-mini` dari OpenAI
 
 ## Automated Output Validation
 
