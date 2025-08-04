@@ -1,133 +1,133 @@
 # MrScraper - AMGR Directory Scraper
 
-Script Python sederhana untuk melakukan web scraping pada situs [AMGR Directory](https://www.amgr.org/frm_directorySearch.cfm).
+A simple Python script for web scraping the [AMGR Directory](https://www.amgr.org/frm_directorySearch.cfm) website.
 
-## Deskripsi
+## Description
 
-Script ini memungkinkan kamu untuk mencari informasi peternak di AMGR Directory dengan menggunakan filter seperti negara bagian (state), anggota (member), dan jenis breed. Hasilnya akan ditampilkan dalam format JSON.
+This script allows you to search for breeder information in the AMGR Directory using filters such as state, member, and breed type. Results are displayed in JSON format.
 
-## Kebutuhan
+## Requirements
 
 -   Python 3.6+
--   Modul Python:
+-   Python modules:
     -   requests
     -   beautifulsoup4
-    -   requests (untuk menggunakan fitur Natural Language)
+    -   requests (for Natural Language feature)
 
-## Instalasi
+## Installation
 
-1. Pastikan Python sudah terinstal pada sistem kamu
-2. Instal modul yang dibutuhkan:
+1. Make sure Python is installed on your system
+2. Install the required modules:
 
 ```bash
 pip install -r requirements.txt
 
-# Untuk fitur Natural Language (opsional)
+# For Natural Language feature (optional)
 pip install openai
 ```
 
-## Mengatur OpenAI API Key
+## Setting up OpenAI API Key
 
-Jika ingin menggunakan fitur Natural Language, kamu perlu mengatur OpenAI API key dengan salah satu cara berikut:
+If you want to use the Natural Language feature, you need to set up the OpenAI API key using one of the following methods:
 
-### 1. Menggunakan file .env (Direkomendasikan)
+### 1. Using .env file (Recommended)
 
-Buat file bernama `.env` di direktori yang sama dengan script, lalu tambahkan:
+Create a file named `.env` in the same directory as the script, then add:
 
 ```
 OPENAI_API_KEY=your-api-key-here
 ```
 
-Pastikan kamu telah menginstal python-dotenv:
+Make sure you have installed python-dotenv:
 
 ```
 pip install python-dotenv
 ```
 
-### 2. Menggunakan Environment Variable
+### 2. Using Environment Variable
 
-#### Di Windows:
+#### On Windows:
 
 ```
 set OPENAI_API_KEY=your-api-key-here
 ```
 
-#### Di Linux/Mac:
+#### On Linux/Mac:
 
 ```
 export OPENAI_API_KEY=your-api-key-here
 ```
 
-Fitur Natural Language tidak akan berfungsi jika API key tidak tersedia melalui salah satu cara di atas.
+The Natural Language feature will not work if the API key is not available through one of the methods above.
 
-## Penggunaan
+## Usage
 
-### Mode Interaktif
+### Interactive Mode
 
-Untuk menggunakan mode interaktif (lebih mudah untuk pemula), jalankan script tanpa argumen:
+To use interactive mode (easier for beginners), run the script without arguments:
 
 ```bash
 python mrscraper.py
 ```
 
-Dalam mode ini, script akan:
+In this mode, the script will:
 
-1. Menanyakan apakah ingin mengaktifkan mode debug
-2. Menanyakan apakah ingin menggunakan Natural Language
-    - Jika ya, kamu dapat memasukkan perintah dalam bahasa alami
-    - Script akan menganalisis perintahmu dan menerjemahkannya ke parameter pencarian
-3. Jika tidak menggunakan Natural Language, script akan:
-    - Meminta kamu memilih state dari daftar
-    - Meminta kamu memilih member dari daftar
-    - Meminta kamu memilih breed dari daftar
-4. Melakukan pencarian dan menampilkan hasilnya
+1. Ask if you want to enable debug mode
+2. Ask if you want to use Natural Language
+    - If yes, you can enter commands in natural language
+    - The script will analyze your command and translate it to search parameters
+3. If not using Natural Language, the script will:
+    - Ask you to select a state from the list
+    - Ask you to select a member from the list
+    - Ask you to select a breed from the list
+4. Perform the search and display the results
 
-### Mode Command Line
+### Command Line Mode
 
-Untuk pengguna yang lebih berpengalaman, script dapat dijalankan dengan parameter:
+For more experienced users, the script can be run with parameters:
 
 ```bash
-python mrscraper.py [OPSI]
+python mrscraper.py [OPTIONS]
 ```
 
-#### Opsi yang tersedia:
+#### Available options:
 
--   `--state`: Filter berdasarkan negara bagian (misal: "Kansas")
--   `--member`: Filter berdasarkan anggota (misal: "Dwight Elmore")
--   `--breed`: Filter berdasarkan breed (misal: "(AR) - American Red")
--   `--debug`: Aktifkan mode debug (menyimpan file HTML di folder debug)
+-   `--state`: Filter by state (e.g., "Kansas")
+-   `--member`: Filter by member (e.g., "Dwight Elmore")
+-   `--breed`: Filter by breed (e.g., "(AR) - American Red")
+-   `--debug`: Enable debug mode (saves HTML files in debug folder)
 
-#### Contoh:
+#### Example:
 
 ```bash
 python mrscraper.py --state "Kansas" --member "Dwight Elmore"
 ```
 
-### Mode Natural Language (NEW!)
+### Natural Language Mode (NEW!)
 
-Kamu juga dapat menggunakan perintah dalam bahasa alami untuk melakukan pencarian:
+You can also use natural language commands to perform searches:
 
 ```bash
-python mrscraper.py --nl "Cari peternak bernama Elmore di Kansas"
+python mrscraper.py --nl "Find breeders named Elmore in Kansas"
 ```
 
-Untuk menggunakan fitur ini, kamu perlu:
+To use this feature, you need to:
 
-1. Menyediakan OpenAI API key:
-    - Melalui parameter: `--api-key "your-api-key-here"`
-    - Atau melalui environment variable: `OPENAI_API_KEY`
-    - Atau masukkan secara interaktif saat diminta
+1. Provide OpenAI API key:
+    - Via parameter: `--api-key "your-api-key-here"`
+    - Or via environment variable: `OPENAI_API_KEY`
+    - Or enter interactively when prompted
 
-#### Contoh perintah bahasa alami:
+#### Example natural language commands:
 
--   "Cari peternak di Kansas"
--   "Tampilkan semua peternak dengan breed American Red"
--   "Siapa peternak bernama Dwight Elmore?"
--   "Cari peternak di Alabama yang memiliki American Black"
+-   "Find breeders in Kansas"
+-   "Show all breeders with American Red breed"
+-   "Who is the breeder named Dwight Elmore?"
+-   "Find breeders in Alabama who have American Black"
 
 ## Output
 
-Output ditampilkan dalam format JSON dengan struktur:
+Output is displayed in JSON format with the following structure:
 
 ```json
 {
@@ -153,63 +153,63 @@ Output ditampilkan dalam format JSON dengan struktur:
 }
 ```
 
-## Mode Debug
+## Debug Mode
 
-Jika kamu mengalami masalah, aktifkan mode debug:
+If you encounter problems, enable debug mode:
 
 ```bash
 python mrscraper.py --debug
 ```
 
-File debug akan disimpan di folder `debug/`:
+Debug files will be saved in the `debug/` folder:
 
--   `main_page.html`: HTML halaman utama
--   `response.html`: HTML hasil pencarian
+-   `main_page.html`: Main page HTML
+-   `response.html`: Search results HTML
 
-## Catatan Teknis
+## Technical Notes
 
--   Script menggunakan nama field yang benar untuk form submission: `stateID`, `memberID`, dan `breedID`
--   Script memiliki mekanisme deteksi elemen form yang fleksibel untuk menangani perubahan struktur halaman
--   Fitur Natural Language menggunakan model `gpt-4o-mini` dari OpenAI
+-   The script uses correct field names for form submission: `stateID`, `memberID`, and `breedID`
+-   The script has flexible form element detection mechanisms to handle page structure changes
+-   Natural Language feature uses OpenAI's `gpt-4o-mini` model
 
 ## Automated Output Validation
 
-Script `test_scraper.py` menyediakan pengujian otomatis untuk memverifikasi akurasi scraper. Fitur ini memungkinkan kamu memastikan bahwa scraper bekerja dengan benar dan menghasilkan output yang diharapkan.
+The `test_scraper.py` script provides automated testing to verify scraper accuracy. This feature allows you to ensure that the scraper works correctly and produces expected output.
 
-### Cara Menjalankan Pengujian
+### How to Run Tests
 
 ```bash
 python test_scraper.py
 ```
 
-### Test Case yang Tersedia
+### Available Test Cases
 
-Script pengujian mencakup 8 test case berbeda:
+The test script includes 8 different test cases:
 
-1. **Pencarian berdasarkan state** - Menguji kemampuan pencarian berdasarkan state (Kansas)
-2. **Pencarian berdasarkan member** - Menguji kemampuan pencarian berdasarkan nama peternak (Dwight Elmore)
-3. **Pencarian berdasarkan breed** - Menguji kemampuan pencarian berdasarkan jenis ternak
-4. **Pencarian kombinasi parameter** - Menguji kemampuan pencarian dengan kombinasi state dan breed (Iowa dan Savanna)
-5. **Pencarian dengan Natural Language** - Menguji kemampuan mengkonversi query bahasa alami ke parameter pencarian
-6. **Pencarian kompleks dengan NL** - Menguji kemampuan mengkonversi query kompleks seperti "Cari peternak di IOWA dengan jenis American Savanna"
-7. **Pencarian dengan parameter tidak valid** - Menguji ketahanan terhadap parameter yang tidak valid
-8. **Penanganan kesalahan** - Menguji penanganan kesalahan saat terjadi masalah koneksi
+1. **Search by state** - Tests search capability by state (Kansas)
+2. **Search by member** - Tests search capability by breeder name (Dwight Elmore)
+3. **Search by breed** - Tests search capability by livestock type
+4. **Combined parameter search** - Tests search capability with combination of state and breed (Iowa and Savanna)
+5. **Natural Language search** - Tests ability to convert natural language queries to search parameters
+6. **Complex NL search** - Tests ability to convert complex queries like "Find breeders in IOWA with American Savanna type"
+7. **Invalid parameter search** - Tests resilience against invalid parameters
+8. **Error handling** - Tests error handling when connection problems occur
 
-### Hasil Pengujian
+### Test Results
 
-Hasil pengujian disimpan dalam folder `test_results/`:
+Test results are saved in the `test_results/` folder:
 
--   File individual untuk setiap test case (misalnya `test_01_search_by_state.json`)
--   File ringkasan dengan statistik keseluruhan (`summary_TIMESTAMP.json`)
+-   Individual files for each test case (e.g., `test_01_search_by_state.json`)
+-   Summary file with overall statistics (`summary_TIMESTAMP.json`)
 
-Setiap file hasil pengujian berisi:
+Each test result file contains:
 
--   Parameter pencarian yang digunakan
--   Waktu eksekusi
--   Contoh data hasil pencarian
--   Ekspektasi vs hasil aktual
+-   Search parameters used
+-   Execution time
+-   Sample result data
+-   Expectations vs actual results
 
-Contoh output pengujian:
+Example test output:
 
 ```json
 {
@@ -249,8 +249,8 @@ Contoh output pengujian:
 }
 ```
 
-## Catatan
+## Notes
 
--   Script ini dirancang hanya untuk tujuan pendidikan
--   Gunakan dengan bijak dan hormati kebijakan situs web yang diakses
--   Penggunaan fitur Natural Language memerlukan OpenAI API key yang valid
+-   This script is designed for educational purposes only
+-   Use wisely and respect the policies of the accessed website
+-   Using the Natural Language feature requires a valid OpenAI API key
