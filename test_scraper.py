@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Script untuk pengujian otomatis dan validasi output dari AMGR Scraper
+Automated testing and output validation for the AMGR Scraper
 
-Pengujian ini menjalankan beberapa test case untuk memastikan scraper
-bekerja dengan benar dan menghasilkan output yang diharapkan.
+Runs a set of test cases to make sure the scraper
+works correctly and produces the expected output.
 """
 import sys
 import time
@@ -14,7 +14,7 @@ import os
 from mrscraper import AMGRScraper
 from nlp_processor import NLPProcessor
 
-# Buat folder untuk menyimpan hasil jika belum ada
+# Create the results folder if it doesn't exist
 TEST_RESULTS_DIR = "test_results"
 if not os.path.exists(TEST_RESULTS_DIR):
     os.makedirs(TEST_RESULTS_DIR)
@@ -23,44 +23,44 @@ if not os.path.exists(TEST_RESULTS_DIR):
 class TestAMGRScraper(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        """Set up scraper instance untuk semua test"""
-        print("Menginisialisasi scraper untuk pengujian...")
+        """Set up the scraper instance for all tests"""
+        print("Initializing scraper for testing...")
         cls.scraper = AMGRScraper(debug=False)
 
-        # Cek apakah NLP Processor tersedia
+        # Check whether the NLP Processor is available
         cls.nlp_available = False
         try:
             api_key = os.environ.get("OPENAI_API_KEY")
             if api_key:
                 cls.nlp = NLPProcessor(api_key=api_key)
                 cls.nlp_available = True
-                print("NLP Processor berhasil diinisialisasi - Pengujian NL tersedia")
+                print("NLP Processor initialized - NL tests enabled")
             else:
-                print("OPENAI_API_KEY tidak ditemukan - Pengujian NL tidak tersedia")
+                print("OPENAI_API_KEY not found - NL tests disabled")
         except Exception as e:
-            print(f"Error inisialisasi NLP: {e} - Pengujian NL tidak tersedia")
+            print(f"NLP initialization error: {e} - NL tests disabled")
 
-        # Dapatkan semua opsi yang tersedia untuk pengujian
+        # Fetch all available options for testing
         try:
             cls.options = cls.scraper.get_options()
-            # Simpan jumlah opsi yang ditemukan untuk validasi
+            # Keep the option counts for validation
             cls.state_count = len(cls.options["states"])
             cls.member_count = len(cls.options["members"])
             cls.breed_count = len(cls.options["breeds"])
 
             print(
-                f"Opsi ditemukan: {cls.state_count} state, {cls.member_count} member, {cls.breed_count} breed"
+                f"Options found: {cls.state_count} states, {cls.member_count} members, {cls.breed_count} breeds"
             )
 
-            # Tetapkan nilai sampel yang spesifik untuk pengujian
+            # Fixed sample values for testing
             cls.sample_state = "Kansas"
-            cls.sample_member = "Dwight Elmore"  # Peternak di Kansas
-            cls.sample_breed = "(SA) - Savanna"  # Jenis ternak yang umum
+            cls.sample_member = "Dwight Elmore"  # Breeder in Kansas
+            cls.sample_breed = "(SA) - Savanna"  # Common breed
 
-            # Verifikasi bahwa sampel yang dipilih ada dalam opsi
+            # Verify the chosen samples exist in the options
             if cls.sample_state not in cls.options["states"]:
                 print(
-                    f"WARNING: State sample '{cls.sample_state}' tidak ditemukan dalam opsi"
+                    f"WARNING: State sample '{cls.sample_state}' not found in options"
                 )
                 cls.sample_state = (
                     next(iter(cls.options["states"].keys()))
@@ -70,7 +70,7 @@ class TestAMGRScraper(unittest.TestCase):
 
             if not any(cls.sample_member in m for m in cls.options["members"]):
                 print(
-                    f"WARNING: Member sample '{cls.sample_member}' tidak ditemukan dalam opsi"
+                    f"WARNING: Member sample '{cls.sample_member}' not found in options"
                 )
                 cls.sample_member = (
                     next(iter(cls.options["members"].keys()))
@@ -80,7 +80,7 @@ class TestAMGRScraper(unittest.TestCase):
 
             if cls.sample_breed not in cls.options["breeds"]:
                 print(
-                    f"WARNING: Breed sample '{cls.sample_breed}' tidak ditemukan dalam opsi"
+                    f"WARNING: Breed sample '{cls.sample_breed}' not found in options"
                 )
                 cls.sample_breed = (
                     next(iter(cls.options["breeds"].keys()))
@@ -89,49 +89,49 @@ class TestAMGRScraper(unittest.TestCase):
                 )
 
             print(
-                f"Menggunakan sampel: state='{cls.sample_state}', member='{cls.sample_member}', breed='{cls.sample_breed}'"
+                f"Using samples: state='{cls.sample_state}', member='{cls.sample_member}', breed='{cls.sample_breed}'"
             )
 
         except Exception as e:
-            print(f"ERROR: Tidak dapat memperoleh opsi untuk pengujian: {e}")
+            print(f"ERROR: Could not fetch options for testing: {e}")
             sys.exit(1)
 
     def validate_result_structure(self, result):
-        """Validasi struktur hasil pencarian"""
-        # Periksa bahwa result adalah dictionary dengan kunci 'header' dan 'data'
-        self.assertIsInstance(result, dict, "Hasil seharusnya berupa dictionary")
-        self.assertIn("header", result, "Hasil harus memiliki key 'header'")
-        self.assertIn("data", result, "Hasil harus memiliki key 'data'")
+        """Validate the search result structure"""
+        # Result must be a dictionary with 'header' and 'data' keys
+        self.assertIsInstance(result, dict, "Result should be a dictionary")
+        self.assertIn("header", result, "Result must have a 'header' key")
+        self.assertIn("data", result, "Result must have a 'data' key")
 
-        # Periksa bahwa header dan data adalah list
-        self.assertIsInstance(result["header"], list, "Header seharusnya berupa list")
-        self.assertIsInstance(result["data"], list, "Data seharusnya berupa list")
+        # header and data must be lists
+        self.assertIsInstance(result["header"], list, "Header should be a list")
+        self.assertIsInstance(result["data"], list, "Data should be a list")
 
-        # Jika ada data, validasi struktur data
+        # If there is data, validate its structure
         if result["data"]:
-            # Cek bahwa setiap row memiliki jumlah kolom yang sama dengan header
+            # Each row must have as many columns as the header
             first_row = result["data"][0]
             self.assertEqual(
                 len(first_row),
                 len(result["header"]),
-                f"Row data harus memiliki jumlah kolom yang sama dengan header",
+                f"Data rows must have the same number of columns as the header",
             )
 
-            # Validasi bahwa header memiliki kolom yang diharapkan
+            # Header must contain the expected columns
             expected_columns = [
                 "State",
                 "Name",
-            ]  # Minimal harus ada kolom state dan name
+            ]  # At minimum, state and name columns
             for column in expected_columns:
                 self.assertTrue(
                     any(column in header for header in result["header"]),
-                    f"Header harus memiliki kolom '{column}'",
+                    f"Header must contain column '{column}'",
                 )
 
         return True
 
     def save_test_result(self, test_name, query_params, result, execution_time):
-        """Simpan hasil pengujian individual ke file JSON"""
+        """Save an individual test result to a JSON file"""
         test_data = {
             "test_name": test_name,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -141,11 +141,11 @@ class TestAMGRScraper(unittest.TestCase):
             "header": result.get("header", []),
             "sample_data": result.get("data", [])[
                 :3
-            ],  # Simpan maksimal 3 hasil pertama
+            ],  # Keep at most the first 3 results
             "test_success": True,
         }
 
-        # Buat file untuk test case ini
+        # Write the file for this test case
         file_path = os.path.join(TEST_RESULTS_DIR, f"{test_name}.json")
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(test_data, f, indent=2, ensure_ascii=False)
@@ -153,109 +153,109 @@ class TestAMGRScraper(unittest.TestCase):
         return file_path
 
     def test_01_search_by_state(self):
-        """Test Case 1: Pencarian berdasarkan state"""
+        """Test Case 1: Search by state"""
         test_name = "test_01_search_by_state"
-        print(f"\nTest Case 1: Pencarian berdasarkan state: {self.sample_state}")
+        print(f"\nTest Case 1: Search by state: {self.sample_state}")
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         params = {"state": self.sample_state}
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": f"Semua data harus memiliki state={self.sample_state}",
-            "verification": "Cek kolom State di setiap row hasil",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": f"All rows must have state={self.sample_state}",
+            "verification": "Check the State column in every result row",
         }
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Expected: {expected['content']}")
 
-        # Jalankan pencarian
+        # Run the search
         start_time = time.time()
         result = self.scraper.search(state=self.sample_state)
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
         if result["data"]:
-            print(f"Contoh hasil: {result['data'][0]}")
+            print(f"Sample result: {result['data'][0]}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Validasi isi hasil - jika ada data, pastikan state sesuai
+        # Validate content - if there is data, the state must match
         state_valid = True
         if result["data"]:
-            # Cari indeks kolom state
+            # Find the State column index
             state_idx = (
                 result["header"].index("State") if "State" in result["header"] else -1
             )
 
             if state_idx >= 0:
                 for row in result["data"]:
-                    if state_idx < len(row):  # Pastikan indeks dalam batas
-                        # Periksa nilai state di row data (jika bukan tombol navigasi)
+                    if state_idx < len(row):  # Make sure the index is in range
+                        # Check the row's state (unless it's a navigation button)
                         if not row[0].startswith("navigate"):
                             if row[state_idx] != self.sample_state:
                                 state_valid = False
                                 print(
-                                    f"Error: State dalam hasil ({row[state_idx]}) tidak sama dengan yang dicari ({self.sample_state})"
+                                    f"Error: State in result ({row[state_idx]}) does not match the searched state ({self.sample_state})"
                                 )
 
-        # Simpan hasil ke file
+        # Save results to file
         result_file = self.save_test_result(
             test_name=test_name,
             query_params=params,
             result=result,
             execution_time=execution_time,
         )
-        print(f"Hasil disimpan ke: {result_file}")
+        print(f"Results saved to: {result_file}")
 
         # Final assertion
         self.assertTrue(
             state_valid,
-            f"Tidak semua state dalam hasil sesuai dengan {self.sample_state}",
+            f"Not all states in the result match {self.sample_state}",
         )
 
     def test_02_search_by_member(self):
-        """Test Case 2: Pencarian berdasarkan member (peternak)"""
+        """Test Case 2: Search by member (breeder)"""
         test_name = "test_02_search_by_member"
         if not self.sample_member:
-            self.skipTest("Tidak ada member sampel untuk diuji")
+            self.skipTest("No sample member to test")
 
-        print(f"\nTest Case 2: Pencarian berdasarkan member: {self.sample_member}")
+        print(f"\nTest Case 2: Search by member: {self.sample_member}")
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         params = {"member": self.sample_member}
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": f"Hasil harus memuat data dengan name={self.sample_member}",
-            "verification": "Cek kolom Name di hasil pencarian",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": f"Results must include data with name={self.sample_member}",
+            "verification": "Check the Name column in the search results",
         }
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Expected: {expected['content']}")
 
-        # Jalankan pencarian
+        # Run the search
         start_time = time.time()
         result = self.scraper.search(member=self.sample_member)
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Validasi bahwa hasil tidak kosong
+        # Results must not be empty
         self.assertGreater(
             len(result["data"]),
             0,
-            f"Pencarian untuk member '{self.sample_member}' seharusnya mengembalikan hasil",
+            f"Search for member '{self.sample_member}' should return results",
         )
 
-        # Tampilkan informasi hasil
+        # Show result info
         if "header" in result and "data" in result and result["data"]:
             print("Header:", result["header"])
-            print("Contoh data:", result["data"][0])
+            print("Sample data:", result["data"][0])
 
-            # Cari indeks kolom name
+            # Find the Name column index
             name_idx = -1
             for i, header_col in enumerate(result["header"]):
                 if "Name" in header_col:
@@ -263,115 +263,115 @@ class TestAMGRScraper(unittest.TestCase):
                     break
 
             if name_idx >= 0:
-                print(f"Kolom Name ditemukan pada indeks {name_idx}")
+                print(f"Name column found at index {name_idx}")
 
-                # Cek apakah member name muncul dalam hasil
+                # Check whether the member name appears in the results
                 member_found = False
                 for row in result["data"]:
                     if len(row) > name_idx:
-                        # Test akan lulus jika menemukan member name sebagai substring
+                        # Passes if the member name appears as a substring
                         if row[name_idx] and self.sample_member in row[name_idx]:
                             member_found = True
-                            print(f"Member ditemukan: {row[name_idx]}")
+                            print(f"Member found: {row[name_idx]}")
                             break
 
                 if not member_found:
                     print(
-                        f"WARNING: Member '{self.sample_member}' tidak ditemukan dalam hasil pencarian"
+                        f"WARNING: Member '{self.sample_member}' not found in search results"
                     )
 
-        # Simpan hasil ke file
+        # Save results to file
         result_file = self.save_test_result(
             test_name=test_name,
             query_params=params,
             result=result,
             execution_time=execution_time,
         )
-        print(f"Hasil disimpan ke: {result_file}")
+        print(f"Results saved to: {result_file}")
 
-        # Tidak perlu fail, karena mungkin hasil tidak persis sama
-        # Namun jika exact match diharapkan, uncomment line berikut:
-        # self.assertTrue(member_found, f"Member '{self.sample_member}' tidak ditemukan dalam hasil pencarian")
+        # Don't fail here, since results may not match exactly
+        # If an exact match is required, uncomment the following line:
+        # self.assertTrue(member_found, f"Member '{self.sample_member}' not found in search results")
 
     def test_03_search_by_breed(self):
-        """Test Case 3: Pencarian berdasarkan breed (jenis ternak)"""
+        """Test Case 3: Search by breed (livestock type)"""
         test_name = "test_03_search_by_breed"
         if not self.sample_breed:
-            self.skipTest("Tidak ada breed sampel untuk diuji")
+            self.skipTest("No sample breed to test")
 
-        print(f"\nTest Case 3: Pencarian berdasarkan breed: {self.sample_breed}")
+        print(f"\nTest Case 3: Search by breed: {self.sample_breed}")
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         params = {"breed": self.sample_breed}
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": f"Hasil harus memuat data peternak dengan breed={self.sample_breed}",
-            "verification": "Validasi struktur output",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": f"Results must include breeders with breed={self.sample_breed}",
+            "verification": "Validate output structure",
         }
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Expected: {expected['content']}")
 
-        # Jalankan pencarian
+        # Run the search
         start_time = time.time()
         result = self.scraper.search(breed=self.sample_breed)
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
         if result["data"]:
-            print(f"Contoh hasil: {result['data'][0]}")
+            print(f"Sample result: {result['data'][0]}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Simpan hasil ke file
+        # Save results to file
         result_file = self.save_test_result(
             test_name=test_name,
             query_params=params,
             result=result,
             execution_time=execution_time,
         )
-        print(f"Hasil disimpan ke: {result_file}")
+        print(f"Results saved to: {result_file}")
 
     def test_04_combined_search_state_breed(self):
-        """Test Case 4: Pencarian kombinasi state dan breed"""
+        """Test Case 4: Combined state and breed search"""
         test_name = "test_04_combined_search"
 
-        # Ubah parameter pencarian ke Iowa dan American Savanna
+        # Search for Iowa and Savanna
         iowa_state = "Iowa"
         savanna_breed = "(SA) - Savanna"
 
         print(
-            f"\nTest Case 4: Pencarian kombinasi state: {iowa_state} dan breed: {savanna_breed}"
+            f"\nTest Case 4: Combined search, state: {iowa_state} and breed: {savanna_breed}"
         )
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         params = {"state": iowa_state, "breed": savanna_breed}
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": f"Hasil harus memuat data dengan state={iowa_state} dan breed={savanna_breed}",
-            "verification": "Cek kolom State di setiap hasil",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": f"Results must include data with state={iowa_state} and breed={savanna_breed}",
+            "verification": "Check the State column in every result",
         }
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Expected: {expected['content']}")
 
-        # Jalankan pencarian
+        # Run the search
         start_time = time.time()
         result = self.scraper.search(state=iowa_state, breed=savanna_breed)
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
         if result["data"]:
-            print(f"Contoh hasil: {result['data'][0]}")
+            print(f"Sample result: {result['data'][0]}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Validasi state dalam hasil jika ada data
+        # Validate states in the result, if there is data
         state_valid = True
         if result["data"]:
-            # Cari indeks kolom state
+            # Find the State column index
             state_idx = (
                 result["header"].index("State") if "State" in result["header"] else -1
             )
@@ -379,14 +379,14 @@ class TestAMGRScraper(unittest.TestCase):
             if state_idx >= 0:
                 for row in result["data"]:
                     if state_idx < len(row) and not row[0].startswith("navigate"):
-                        # Iowa biasanya muncul sebagai IA di hasil pencarian
+                        # Iowa usually appears as IA in search results
                         if row[state_idx] != "IA":
                             state_valid = False
                             print(
-                                f"Error: State dalam hasil ({row[state_idx]}) tidak sama dengan yang dicari (IA)"
+                                f"Error: State in result ({row[state_idx]}) does not match the searched state (IA)"
                             )
 
-        # Simpan hasil ke file dengan contoh ekspektasi output
+        # Save results to file with a sample of the expected output
         expected_output = {
             "header": ["Action", "State", "Name", "Farm", "Phone", "Website"],
             "data": [
@@ -411,49 +411,49 @@ class TestAMGRScraper(unittest.TestCase):
             "header": result.get("header", []),
             "sample_data": result.get("data", [])[
                 :3
-            ],  # Simpan maksimal 3 hasil pertama
+            ],  # Keep at most the first 3 results
             "test_success": state_valid,
             "expected_output": expected_output,
         }
 
-        # Buat file untuk test case ini
+        # Write the file for this test case
         file_path = os.path.join(TEST_RESULTS_DIR, f"{test_name}.json")
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(test_data, f, indent=2, ensure_ascii=False)
 
-        print(f"Hasil disimpan ke: {file_path}")
+        print(f"Results saved to: {file_path}")
 
-        # Final assertion jika ada data
+        # Final assertion if there is data
         if result["data"]:
             self.assertTrue(
                 state_valid,
-                f"Tidak semua state dalam hasil sesuai dengan 'IA'",
+                f"Not all states in the result match 'IA'",
             )
 
     def test_05_natural_language_query(self):
-        """Test Case 5: Pencarian menggunakan bahasa alami"""
+        """Test Case 5: Search using natural language"""
         test_name = "test_05_nl_query"
         if not self.nlp_available:
-            self.skipTest("NLP Processor tidak tersedia untuk pengujian")
+            self.skipTest("NLP Processor not available for testing")
 
-        print("\nTest Case 5: Pencarian menggunakan bahasa alami")
+        print("\nTest Case 5: Search using natural language")
 
-        # Definisikan parameter dan ekspektasi
-        nl_query = f"Cari peternak di {self.sample_state}"
+        # Define parameters and expectations
+        nl_query = f"Find breeders in {self.sample_state}"
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": f"Hasil harus memuat data dengan state={self.sample_state}",
-            "verification": "Bandingkan dengan pencarian state biasa",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": f"Results must include data with state={self.sample_state}",
+            "verification": "Compare with a regular state search",
         }
-        print(f'Query bahasa alami: "{nl_query}"')
-        print(f"Ekspektasi: {expected['content']}")
+        print(f'Natural language query: "{nl_query}"')
+        print(f"Expected: {expected['content']}")
 
-        # Proses query bahasa alami
+        # Process the natural language query
         start_time = time.time()
         nl_params = self.nlp.parse_command(nl_query)
-        print(f"Hasil parsing NL: {nl_params}")
+        print(f"Parsed NL params: {nl_params}")
 
-        # Jalankan pencarian dengan parameter dari NL
+        # Run the search with the NL parameters
         result = self.scraper.search(
             state=nl_params.get("state"),
             member=nl_params.get("member"),
@@ -461,19 +461,19 @@ class TestAMGRScraper(unittest.TestCase):
         )
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
         if result["data"]:
-            print(f"Contoh hasil: {result['data'][0]}")
+            print(f"Sample result: {result['data'][0]}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Validasi state dalam hasil jika ada data
+        # Validate states in the result, if there is data
         state_valid = True
         if result["data"] and nl_params.get("state"):
-            # Cari indeks kolom state
+            # Find the State column index
             state_idx = (
                 result["header"].index("State") if "State" in result["header"] else -1
             )
@@ -484,10 +484,10 @@ class TestAMGRScraper(unittest.TestCase):
                         if row[state_idx] != nl_params.get("state"):
                             state_valid = False
                             print(
-                                f"Error: State dalam hasil ({row[state_idx]}) tidak sama dengan yang dicari ({nl_params.get('state')})"
+                                f"Error: State in result ({row[state_idx]}) does not match the searched state ({nl_params.get('state')})"
                             )
 
-        # Simpan hasil ke file dengan informasi tambahan
+        # Save results to file with extra info
         nl_test_data = {
             "test_name": test_name,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -498,48 +498,48 @@ class TestAMGRScraper(unittest.TestCase):
             "header": result.get("header", []),
             "sample_data": result.get("data", [])[
                 :3
-            ],  # Simpan maksimal 3 hasil pertama
+            ],  # Keep at most the first 3 results
             "test_success": state_valid,
         }
 
-        # Buat file untuk test case ini
+        # Write the file for this test case
         file_path = os.path.join(TEST_RESULTS_DIR, f"{test_name}.json")
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(nl_test_data, f, indent=2, ensure_ascii=False)
 
-        print(f"Hasil disimpan ke: {file_path}")
+        print(f"Results saved to: {file_path}")
 
-        # Final assertion jika ada state yang diharapkan
+        # Final assertion if a state is expected
         if result["data"] and nl_params.get("state"):
             self.assertTrue(
                 state_valid,
-                f"Tidak semua state dalam hasil sesuai dengan {nl_params.get('state')}",
+                f"Not all states in the result match {nl_params.get('state')}",
             )
 
     def test_06_natural_language_complex(self):
-        """Test Case 6: Pencarian kompleks menggunakan bahasa alami"""
+        """Test Case 6: Complex search using natural language"""
         test_name = "test_06_nl_complex"
         if not self.nlp_available:
-            self.skipTest("NLP Processor tidak tersedia untuk pengujian")
+            self.skipTest("NLP Processor not available for testing")
 
-        print("\nTest Case 6: Pencarian kompleks menggunakan bahasa alami")
+        print("\nTest Case 6: Complex search using natural language")
 
-        # Definisikan parameter dan ekspektasi
-        nl_query = "Cari peternak di IOWA dengan jenis American Savanna"
+        # Define parameters and expectations
+        nl_query = "Find breeders in IOWA with American Savanna type"
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": "Hasil harus memuat data dengan state=Iowa dan breed=American Savanna",
-            "verification": "Bandingkan dengan pencarian kombinasi biasa",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": "Results must include data with state=Iowa and breed=American Savanna",
+            "verification": "Compare with a regular combined search",
         }
-        print(f'Query bahasa alami: "{nl_query}"')
-        print(f"Ekspektasi: {expected['content']}")
+        print(f'Natural language query: "{nl_query}"')
+        print(f"Expected: {expected['content']}")
 
-        # Proses query bahasa alami
+        # Process the natural language query
         start_time = time.time()
         nl_params = self.nlp.parse_command(nl_query)
-        print(f"Hasil parsing NL: {nl_params}")
+        print(f"Parsed NL params: {nl_params}")
 
-        # Jalankan pencarian dengan parameter dari NL
+        # Run the search with the NL parameters
         result = self.scraper.search(
             state=nl_params.get("state"),
             member=nl_params.get("member"),
@@ -547,19 +547,19 @@ class TestAMGRScraper(unittest.TestCase):
         )
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
         if result["data"]:
-            print(f"Contoh hasil: {result['data'][0]}")
+            print(f"Sample result: {result['data'][0]}")
 
-        # Validasi struktur hasil
+        # Validate result structure
         self.validate_result_structure(result)
 
-        # Validasi hasil jika ada data
+        # Validate results, if there is data
         state_valid = True
         if result["data"] and nl_params.get("state"):
-            # Cari indeks kolom state
+            # Find the State column index
             state_idx = (
                 result["header"].index("State") if "State" in result["header"] else -1
             )
@@ -567,14 +567,14 @@ class TestAMGRScraper(unittest.TestCase):
             if state_idx >= 0:
                 for row in result["data"]:
                     if state_idx < len(row) and not row[0].startswith("navigate"):
-                        # Iowa ditampilkan sebagai IA dalam hasil
+                        # Iowa is shown as IA in the results
                         if row[state_idx] != "IA":
                             state_valid = False
                             print(
-                                f"Error: State dalam hasil ({row[state_idx]}) tidak sama dengan yang diharapkan (IA)"
+                                f"Error: State in result ({row[state_idx]}) does not match the expected state (IA)"
                             )
 
-        # Ekspektasi output
+        # Expected output
         expected_output = {
             "header": ["Action", "State", "Name", "Farm", "Phone", "Website"],
             "data": [
@@ -590,7 +590,7 @@ class TestAMGRScraper(unittest.TestCase):
             ],
         }
 
-        # Simpan hasil ke file dengan informasi tambahan
+        # Save results to file with extra info
         nl_test_data = {
             "test_name": test_name,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -601,97 +601,97 @@ class TestAMGRScraper(unittest.TestCase):
             "header": result.get("header", []),
             "sample_data": result.get("data", [])[
                 :3
-            ],  # Simpan maksimal 3 hasil pertama
+            ],  # Keep at most the first 3 results
             "test_success": state_valid,
             "expected_output": expected_output,
         }
 
-        # Buat file untuk test case ini
+        # Write the file for this test case
         file_path = os.path.join(TEST_RESULTS_DIR, f"{test_name}.json")
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(nl_test_data, f, indent=2, ensure_ascii=False)
 
-        print(f"Hasil disimpan ke: {file_path}")
+        print(f"Results saved to: {file_path}")
 
     def test_07_invalid_parameters(self):
-        """Test Case 7: Pencarian dengan parameter tidak valid"""
+        """Test Case 7: Search with invalid parameters"""
         test_name = "test_07_invalid_params"
-        print("\nTest Case 7: Pencarian dengan parameter tidak valid")
+        print("\nTest Case 7: Search with invalid parameters")
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         invalid_state = "NonExistentState"
         params = {"state": invalid_state}
         expected = {
-            "structure": 'dictionary dengan key "header" dan "data"',
-            "content": "Scraper harus menangani parameter tidak valid dengan baik",
-            "verification": "Periksa struktur output",
+            "structure": 'dictionary with "header" and "data" keys',
+            "content": "Scraper must handle invalid parameters gracefully",
+            "verification": "Check the output structure",
         }
-        print(f"Parameter tidak valid: state='{invalid_state}'")
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Invalid parameter: state='{invalid_state}'")
+        print(f"Expected: {expected['content']}")
 
-        # Jalankan pencarian
+        # Run the search
         start_time = time.time()
         result = self.scraper.search(state=invalid_state)
         execution_time = time.time() - start_time
 
-        # Tampilkan hasil
-        print(f"Waktu eksekusi: {execution_time:.2f} detik")
-        print(f"Jumlah hasil: {len(result['data'])}")
+        # Show results
+        print(f"Execution time: {execution_time:.2f} seconds")
+        print(f"Result count: {len(result['data'])}")
 
-        # Validasi bahwa hasilnya adalah dictionary dengan struktur yang benar
+        # Result must be a dictionary with the right structure
         self.validate_result_structure(result)
 
-        # Simpan hasil ke file
+        # Save results to file
         result_file = self.save_test_result(
             test_name=test_name,
             query_params=params,
             result=result,
             execution_time=execution_time,
         )
-        print(f"Hasil disimpan ke: {result_file}")
+        print(f"Results saved to: {result_file}")
 
     @patch("builtins.print")
     def test_08_error_handling(self, mock_print):
-        """Test Case 8: Penanganan kesalahan dasar"""
+        """Test Case 8: Basic error handling"""
         test_name = "test_08_error_handling"
-        print("\nTest Case 8: Penanganan kesalahan dasar")
+        print("\nTest Case 8: Basic error handling")
 
-        # Definisikan parameter dan ekspektasi
+        # Define parameters and expectations
         params = {"error_test": True}
         expected = {
-            "structure": "Error harus ditangani dengan baik",
-            "content": "Scraper harus menampilkan pesan error yang bermakna",
-            "verification": "Cek jumlah panggilan print dan pesan error",
+            "structure": "Errors must be handled gracefully",
+            "content": "Scraper must print a meaningful error message",
+            "verification": "Check the print call count and error message",
         }
-        print(f"Ekspektasi: {expected['content']}")
+        print(f"Expected: {expected['content']}")
 
-        # Uji dengan URL yang salah
+        # Test with a bad URL
         original_url = self.scraper.base_url
         self.scraper.base_url = "https://nonexistent-url.example.com"
 
-        # Coba lakukan pencarian
+        # Try a search
         start_time = time.time()
         error_message = None
         try:
             result = self.scraper.search()
-            print(f"Hasil: {len(result['data'])} item")
+            print(f"Result: {len(result['data'])} items")
             results_data = result
         except Exception as e:
             error_message = f"{e.__class__.__name__}: {e}"
-            print(f"Error tertangkap: {error_message}")
+            print(f"Caught error: {error_message}")
             results_data = {"error": error_message}
         finally:
-            # Kembalikan URL asli
+            # Restore the original URL
             self.scraper.base_url = original_url
 
         execution_time = time.time() - start_time
 
-        # Validasi bahwa error telah dihandle dengan baik
+        # The error must have been handled gracefully
         self.assertGreaterEqual(
-            mock_print.call_count, 1, "Seharusnya ada pesan error yang dicetak"
+            mock_print.call_count, 1, "An error message should have been printed"
         )
 
-        # Simpan hasil ke file khusus untuk test error
+        # Save the error test result to its own file
         error_test_data = {
             "test_name": test_name,
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -702,20 +702,20 @@ class TestAMGRScraper(unittest.TestCase):
             "test_success": mock_print.call_count >= 1,
         }
 
-        # Buat file untuk test case ini
+        # Write the file for this test case
         file_path = os.path.join(TEST_RESULTS_DIR, f"{test_name}.json")
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(error_test_data, f, indent=2, ensure_ascii=False)
 
-        print(f"Hasil disimpan ke: {file_path}")
+        print(f"Results saved to: {file_path}")
 
 
 def save_summary_report(results):
-    """Simpan laporan ringkasan pengujian ke file JSON"""
+    """Save the test summary report to a JSON file"""
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     filename = os.path.join(TEST_RESULTS_DIR, f"summary_{timestamp}.json")
 
-    # Tambahkan informasi ekspektasi vs hasil sebenarnya untuk setiap test
+    # Add expected vs. actual results for each test
     test_details = []
     for test_name in [
         "test_01_search_by_state",
@@ -727,7 +727,7 @@ def save_summary_report(results):
         "test_07_invalid_params",
         "test_08_error_handling",
     ]:
-        # Cari file hasil terbaru untuk test ini
+        # Find the latest result file for this test
         test_files = [
             f
             for f in os.listdir(TEST_RESULTS_DIR)
@@ -755,74 +755,74 @@ def save_summary_report(results):
                 }
                 test_details.append(test_info)
             except Exception as e:
-                print(f"Error saat membaca hasil test {test_name}: {e}")
+                print(f"Error reading test result {test_name}: {e}")
 
-    # Tambahkan detail test ke ringkasan
+    # Add the test details to the summary
     results["test_details"] = test_details
 
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
-    print(f"Ringkasan pengujian disimpan ke {filename}")
+    print(f"Test summary saved to {filename}")
     return filename
 
 
 def get_test_expectation(test_name):
-    """Dapatkan deskripsi ekspektasi untuk test tertentu"""
+    """Get the expectation description for a given test"""
     expectations = {
-        "test_01_search_by_state": "Pencarian berdasarkan state harus menghasilkan daftar peternak di state tersebut",
-        "test_02_search_by_member": "Pencarian berdasarkan member harus menemukan peternak dengan nama tersebut",
-        "test_03_search_by_breed": "Pencarian berdasarkan breed harus menemukan peternak dengan breed tersebut",
-        "test_04_combined_search": "Pencarian kombinasi parameter harus menghasilkan hasil yang sesuai dengan kedua kriteria",
-        "test_05_nl_query": "Query bahasa alami harus dikonversi ke parameter yang benar dan menghasilkan hasil yang relevan",
-        "test_06_nl_complex": "Query bahasa alami kompleks harus diproses dengan benar meskipun memiliki beberapa parameter",
-        "test_07_invalid_params": "Parameter tidak valid harus ditangani dengan baik tanpa error",
-        "test_08_error_handling": "Error koneksi atau server harus ditangani dengan baik dan memberikan pesan yang informatif",
+        "test_01_search_by_state": "Searching by state should return a list of breeders in that state",
+        "test_02_search_by_member": "Searching by member should find the breeder with that name",
+        "test_03_search_by_breed": "Searching by breed should find breeders with that breed",
+        "test_04_combined_search": "A combined search should return results matching both criteria",
+        "test_05_nl_query": "A natural language query should be converted to the right parameters and return relevant results",
+        "test_06_nl_complex": "A complex natural language query should be processed correctly even with multiple parameters",
+        "test_07_invalid_params": "Invalid parameters should be handled gracefully without errors",
+        "test_08_error_handling": "Connection or server errors should be handled gracefully with an informative message",
     }
-    return expectations.get(test_name, "Tidak ada deskripsi ekspektasi")
+    return expectations.get(test_name, "No expectation description")
 
 
 def get_actual_result_description(test_data):
-    """Buat deskripsi hasil aktual berdasarkan data pengujian"""
+    """Build a description of the actual result from the test data"""
     if "error" in test_data:
-        return f"Terjadi error: {test_data['error']}"
+        return f"An error occurred: {test_data['error']}"
 
     result_count = test_data.get("result_count", 0)
 
     if "nl_query" in test_data:
         parsed_params = test_data.get("parsed_params", {})
         param_str = ", ".join([f"{k}='{v}'" for k, v in parsed_params.items() if v])
-        return f"Query NL diproses menjadi parameter ({param_str}) dengan {result_count} hasil"
+        return f"NL query parsed into parameters ({param_str}) with {result_count} results"
 
     if "query_params" in test_data:
         param_str = ", ".join(
             [f"{k}='{v}'" for k, v in test_data["query_params"].items()]
         )
-        return f"Pencarian dengan {param_str} menghasilkan {result_count} hasil"
+        return f"Search with {param_str} returned {result_count} results"
 
-    return f"Pengujian selesai dengan {result_count} hasil"
+    return f"Test finished with {result_count} results"
 
 
 def run_tests():
-    """Jalankan semua test case dan kumpulkan hasil"""
-    # Buat test suite
+    """Run all test cases and collect the results"""
+    # Build the test suite
     loader = unittest.TestLoader()
 
-    # Urutkan test berdasarkan nomor
+    # Sort tests by number
     loader.sortTestMethodsUsing = lambda x, y: int(x.split("_")[1]) - int(
         y.split("_")[1]
     )
 
     suite = loader.loadTestsFromTestCase(TestAMGRScraper)
 
-    # Jalankan test dan kumpulkan hasil
+    # Run the tests and collect results
     results = {}
 
-    # Gunakan TextTestRunner untuk menangkap output
+    # Use TextTestRunner to capture output
     runner = unittest.TextTestRunner(verbosity=2)
     test_results = runner.run(suite)
 
-    # Kumpulkan statistik
+    # Collect statistics
     results["total"] = test_results.testsRun
     results["success"] = (
         test_results.testsRun - len(test_results.failures) - len(test_results.errors)
@@ -833,19 +833,19 @@ def run_tests():
         results["success"] / results["total"] * 100 if results["total"] > 0 else 0
     )
 
-    # Tampilkan ringkasan
+    # Show the summary
     print("\n" + "=" * 50)
-    print("RINGKASAN HASIL PENGUJIAN OTOMATIS")
+    print("AUTOMATED TEST RESULTS SUMMARY")
     print("=" * 50)
-    print(f"Total test case: {results['total']}")
-    print(f"Sukses: {results['success']}")
-    print(f"Gagal: {results['fail']}")
-    print(f"Error: {results['error']}")
-    print(f"Tingkat keberhasilan: {results['success_rate']:.2f}%")
+    print(f"Total test cases: {results['total']}")
+    print(f"Passed: {results['success']}")
+    print(f"Failed: {results['fail']}")
+    print(f"Errors: {results['error']}")
+    print(f"Success rate: {results['success_rate']:.2f}%")
 
-    # Simpan ringkasan hasil ke file
+    # Save the summary to a file
     summary_file = save_summary_report(results)
-    print(f"Laporan lengkap disimpan ke: {summary_file}")
+    print(f"Full report saved to: {summary_file}")
 
     return results
 

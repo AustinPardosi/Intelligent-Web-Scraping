@@ -1,6 +1,6 @@
 requests>=2.25.1
 beautifulsoup4>=4.9.3
-# Dependensi untuk NLP Processor (Natural Language)
+# Natural language feature (NLP Processor)
 openai>=1.0.0
-# Untuk membaca file .env
+# Reads the .env file
 python-dotenv>=1.0.0 
